@@ -1,0 +1,83 @@
+﻿@using TechShop1.Helpers
+@{
+    ViewData["Title"] = "Xác nhận đơn hàng";
+    var cart = Context.Session.Get<List<TechShop1.ViewModels.CartItem>>(MySetting.CART_KEY);
+}
+
+<div class="container-fluid page-header py-5">
+    <div class="container text-center py-5">
+        <h1 class="text-white display-6">Xác nhận đơn hàng</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-tech-dark text-white">
+                    <h5 class="mb-0">Thông tin sản phẩm</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th class="text-end">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in cart!)
+                            {
+                                <tr>
+                                    <td>@item.TenHH x @item.SoLuong</td>
+                                    <td class="text-end">@item.ThanhTien.ToString("#,##0") đ</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th class="fs-5">Tổng cộng</th>
+                                <th class="text-end text-primary fs-5">@cart.Sum(p => p.ThanhTien).ToString("#,##0") đ</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body p-4">
+                    <h4 class="text-center mb-4">Xác thực SMS</h4>
+                    <p class="text-center">
+                        Chúng tôi đã gửi mã OTP đến số:<br />
+                        <span class="badge bg-info text-dark">@ViewBag.Sdt</span>
+                    </p>
+                    <hr />
+
+                    <form asp-action="ConfirmOrderOTP" method="post">
+                        <input type="hidden" name="sdt" value="@ViewBag.Sdt" />
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Nhập 6 số xác nhận:</label>
+                            <input name="otp" class="form-control form-control-lg text-center fw-bold text-primary"
+                                   style="letter-spacing: 10px; font-size: 2rem;"
+                                   maxlength="6" autocomplete="off" autofocus required />
+                        </div>
+
+                        <div class="text-danger mb-3" asp-validation-summary="ModelOnly"></div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow">
+                            XÁC NHẬN ĐẶT HÀNG
+                        </button>
+                    </form>
+
+                    <div class="mt-4 text-center">
+                        <small class="text-muted">Mã này sẽ hết hạn sau vài phút.</small><br />
+                        <a href="javascript:location.reload();" class="text-decoration-none">Gửi lại mã mới</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

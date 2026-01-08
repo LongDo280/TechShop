@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TechShop1.ViewModels.HangHoaVM>
+
+@foreach (var item in Model)
+{
+    <div class="col">
+        <div class="card h-100 border-0 shadow-sm product-card">
+            <div class="position-relative overflow-hidden p-3">
+                <a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.MaHh">
+                    <img class="card-img-top" src="~/Hinh/HangHoa/@item.Hinh" alt="@item.TenHh"
+                         style="height: 200px; object-fit: contain;" />
+                </a>
+            </div>
+
+            <div class="card-body p-3 text-center">
+                <h6 class="fw-bold text-dark text-truncate-2 mb-2" style="min-height: 40px;">
+                    @item.TenHh
+                </h6>
+                <div class="fs-5 fw-bold text-primary">
+                    @string.Format("{0:N0} ₫", item.DonGia)
+                </div>
+            </div>
+
+            <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
+                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.MaHh"
+                   class="btn btn-primary w-100 rounded-pill py-2 hover-up">
+                    <i class="fa fa-shopping-cart me-2"></i>Thêm vào giỏ
+                </a>
+            </div>
+        </div>
+    </div>
+}

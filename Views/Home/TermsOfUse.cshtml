@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Điều khoản sử dụng";
+}
+
+<div class="container-fluid page-header py-5 shadow-sm">
+    <div class="container text-center py-5">
+        <h1 class="text-white display-5 fw-bold mb-3">Điều Khoản Sử Dụng</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none">Trang chủ</a></li>
+                <li class="breadcrumb-item active text-white-50" aria-current="page">Terms of Use</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container-fluid py-5 bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="bg-white p-5 rounded-4 shadow-sm">
+                    <h2 class="text-primary fw-bold mb-4">1. Chấp nhận điều khoản</h2>
+                    <p class="text-muted mb-4">
+                        Khi truy cập và sử dụng website TechShop, bạn mặc nhiên đồng ý với các điều khoản và điều kiện này. Nếu bạn không đồng ý, vui lòng ngừng sử dụng dịch vụ của chúng tôi.
+                    </p>
+
+                    <h2 class="text-primary fw-bold mb-4">2. Tài khoản người dùng</h2>
+                    <ul class="text-muted mb-4">
+                        <li class="mb-2">Bạn có trách nhiệm bảo mật thông tin đăng nhập và mật khẩu cá nhân.</li>
+                        <li class="mb-2">Mật khẩu của bạn được hệ thống bảo vệ nghiêm ngặt thông qua mã hóa MD5 và Random Key.</li>
+                        <li class="mb-2">TechShop có quyền khóa tài khoản nếu phát hiện hành vi gian lận hoặc vi phạm chính sách.</li>
+                    </ul>
+
+                    <h2 class="text-primary fw-bold mb-4">3. Quyền sở hữu trí tuệ</h2>
+                    <p class="text-muted mb-4">
+                        Tất cả nội dung trên website bao gồm hình ảnh sản phẩm, logo TechShop, mã nguồn và thiết kế giao diện đều thuộc sở hữu của chúng tôi. Mọi hành vi sao chép trái phép đều bị nghiêm cấm.
+                    </p>
+
+                    <h2 class="text-primary fw-bold mb-4">4. Giao dịch và thanh toán</h2>
+                    <p class="text-muted mb-4">
+                        Người dùng cam kết cung cấp thông tin chính xác về địa chỉ và số điện thoại khi đặt hàng. Các giao dịch thanh toán qua VNPAY phải tuân thủ quy định bảo mật của cổng thanh toán này.
+                    </p>
+
+                    <div class="p-4 bg-light rounded-4 border-start border-primary border-4 mt-5">
+                        <h5 class="fw-bold"><i class="fas fa-exclamation-triangle text-primary me-2"></i> Trách nhiệm pháp lý:</h5>
+                        <p class="mb-0 text-muted small">
+                            TechShop không chịu trách nhiệm cho bất kỳ tổn thất nào phát sinh từ việc người dùng tiết lộ thông tin tài khoản cho bên thứ ba hoặc do sự cố kỹ thuật từ phía nhà cung cấp mạng.
+                        </p>
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <a asp-controller="HangHoa" asp-action="Index" class="btn btn-primary rounded-pill px-5 py-3 fw-bold text-uppercase shadow-sm">
+                            Bắt đầu mua sắm ngay
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary">
+            Chào mừng đến với TechShop 🚀
+        </h1>
+        <p class="lead text-muted mt-3">
+            Thế giới công nghệ chính hãng – Giá tốt – Giao hàng nhanh
+        </p>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <i class="fas fa-laptop fa-3x text-primary mb-3"></i>
+            <h5 class="fw-bold">Sản phẩm chính hãng</h5>
+            <p class="text-muted">
+                Laptop, PC, Gaming Gear, phụ kiện chất lượng cao
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
+            <h5 class="fw-bold">Giao hàng nhanh</h5>
+            <p class="text-muted">
+                Giao hàng toàn quốc – Nhận hàng nhanh chóng
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+            <h5 class="fw-bold">Hỗ trợ 24/7</h5>
+            <p class="text-muted">
+                Tư vấn tận tâm – Bảo hành uy tín
+            </p>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-5">
+        <a asp-controller="HangHoa"
+           asp-action="Index"
+           class="btn btn-primary px-5 py-3 rounded-pill">
+            Xem sản phẩm ngay 🛒
+        </a>
+    </div>
+</div>

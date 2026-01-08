@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán thành công";
+    Layout = "_Layout"; // dùng layout chung của site
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+
+            <!-- Icon -->
+            <div class="mb-4">
+                <i class="fa fa-check-circle text-success" style="font-size: 80px;"></i>
+            </div>
+
+            <!-- Title -->
+            <h2 class="text-success mb-3">Thanh toán thành công!</h2>
+
+            <!-- Message -->
+            <p class="text-muted mb-4">
+                Cảm ơn bạn đã mua hàng tại <strong>TechShop</strong>.<br />
+                Đơn hàng của bạn đã được ghi nhận và đang được xử lý.
+            </p>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-center gap-3">
+                <a asp-controller="Home" asp-action="Index"
+                   class="btn btn-primary px-4">
+                    ⬅ Về trang chủ
+                </a>
+
+                <a asp-controller="KhachHang" asp-action="Profile"
+                   class="btn btn-outline-secondary px-4">
+                    👤 Tài khoản của tôi
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

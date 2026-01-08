@@ -1,0 +1,28 @@
+﻿@model TechShop1.ViewModels.FilterDataVM
+
+<div class="mb-4">
+    <h6 class="fw-bold text-uppercase small mb-3 text-primary">Loại thiết bị</h6>
+    <div class="filter-scroll" style="max-height: 200px; overflow-y: auto;">
+        @foreach (var loai in Model.Loais)
+        {
+            <div class="form-check mb-2">
+                <input class="form-check-input filter-checkbox" type="checkbox" name="loais" value="@loai.MaLoai" id="l-@loai.MaLoai">
+                <label class="form-check-label small" for="l-@loai.MaLoai">@loai.TenLoai</label>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="mb-4">
+    <h6 class="fw-bold text-uppercase small mb-3 text-primary">Hãng sản xuất</h6>
+    <div class="filter-scroll" style="max-height: 200px; overflow-y: auto;">
+        @foreach (var ncc in Model.NhaCungCaps)
+        {
+            <div class="form-check mb-2">
+                @* name="hangs" khớp với tham số trong Controller *@
+                <input class="form-check-input filter-checkbox" type="checkbox" name="hangs" value="@ncc.MaNCC" id="n-@ncc.MaNCC">
+                <label class="form-check-label small" for="n-@ncc.MaNCC">@ncc.TenCongTy</label>
+            </div>
+        }
+    </div>
+</div>

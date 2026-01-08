@@ -1,0 +1,83 @@
+﻿@model TechShop1.ViewModels.RegisterVM
+@{
+    ViewData["Title"] = "Đăng Ký Tài Khoản";
+}
+
+<div class="container-fluid py-5 mt-5">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 shadow p-5 bg-light rounded-20">
+                <h2 class="text-primary fw-bold mb-4 text-center">TẠO TÀI KHOẢN MỚI</h2>
+                <form asp-action="DangKy" asp-controller="KhachHang" enctype="multipart/form-data" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="MaKh" class="form-label fw-bold"></label> <span class="text-danger">*</span>
+                            <input asp-for="MaKh" class="form-control rounded-pill px-3" />
+                            <span asp-validation-for="MaKh" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="MatKhau" class="form-label fw-bold"></label> <span class="text-danger">*</span>
+                            <input asp-for="MatKhau" type="password" class="form-control rounded-pill px-3" />
+                            <span asp-validation-for="MatKhau" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <label asp-for="HoTen" class="form-label fw-bold"></label> <span class="text-danger">*</span>
+                            <input asp-for="HoTen" class="form-control rounded-pill px-3" />
+                            <span asp-validation-for="HoTen" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label fw-bold"></label> <span class="text-danger">*</span>
+                            <input asp-for="Email" class="form-control rounded-pill px-3" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="DienThoai" class="form-label fw-bold"></label>
+                            <input asp-for="DienThoai" class="form-control rounded-pill px-3" />
+                            <span asp-validation-for="DienThoai" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="NgaySinh" class="form-label fw-bold"></label>
+                            <input asp-for="NgaySinh" type="date" class="form-control rounded-pill px-3" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold d-block">Giới tính</label>
+                            <div class="form-check form-check-inline mt-2">
+                                <input asp-for="GioiTinh" class="form-check-input" type="radio" value="true" checked id="male">
+                                <label class="form-check-label" for="male">Nam</label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input asp-for="GioiTinh" class="form-check-input" type="radio" value="false" id="female">
+                                <label class="form-check-label" for="female">Nữ</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <label asp-for="DiaChi" class="form-label fw-bold"></label>
+                            <input asp-for="DiaChi" class="form-control rounded-pill px-3" />
+                            <span asp-validation-for="DiaChi" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label class="form-label fw-bold">Ảnh đại diện</label>
+                            <input type="file" name="Hinh" class="form-control rounded-pill px-3" />
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold hover-up">ĐĂNG KÝ NGAY</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>
+}

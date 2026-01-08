@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "_Layout1";
+}
+
+@RenderSection("BreadCum", required: false)
+
+<div class="container py-5">
+    @* Form bao quanh để thu thập dữ liệu lọc qua AJAX *@
+    <form id="filter-form" asp-action="Index" asp-controller="HangHoa" method="get">
+        <div class="row">
+            <div class="col-lg-3 pe-lg-4">
+                <div class="filter-sidebar bg-white p-4 shadow-sm rounded-4 border-0">
+                    <h5 class="fw-bold mb-4 border-bottom pb-2">Bộ lọc</h5>
+
+                    @* Lấy danh sách Hãng và Loại thiết bị động *@
+                    @await Component.InvokeAsync("FilterMenu")
+
+                    <div class="mb-4 mt-4">
+                        <h6 class="fw-bold text-uppercase small mb-3 text-primary">Khoảng giá</h6>
+                        <select class="form-select border-light bg-light rounded-pill filter-checkbox" name="priceRange">
+                            <option value="">Tất cả giá</option>
+                            <option value="0-10">Dưới 10 triệu</option>
+                            <option value="10-20">10 - 20 triệu</option>
+                            <option value="20-30">20 - 30 triệu</option>
+                            <option value="30-max">Trên 30 triệu</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded-4 shadow-sm">
+                    <p class="mb-0 text-muted">Danh sách sản phẩm</p>
+
+                    <select class="form-select w-auto border-0 bg-light rounded-pill filter-checkbox" name="sortOrder">
+                        <option value="">Sắp xếp mặc định</option>
+                        <option value="price_asc">Giá: Thấp &rarr; Cao</option>
+                        <option value="price_desc">Giá: Cao &rarr; Thấp</option>
+                        <option value="newest">Mới nhất</option>
+                    </select>
+                </div>
+
+                @* VÙNG QUAN TRỌNG: Chỉ chứa RenderBody, không bọc thêm thẻ row ở đây *@
+                <div id="product-list-container">
+                    @RenderBody()
+                </div>
+
+                @* Phân trang *@
+                <nav class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item active"><a class="page-link border-0 shadow-sm mx-1 rounded-pill px-3" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link border-0 shadow-sm mx-1 rounded-pill px-3 text-dark" href="#">2</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </form>
+</div>
+
+@RenderSection("Scripts", required: false)

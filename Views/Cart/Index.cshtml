@@ -1,0 +1,161 @@
+﻿@model IEnumerable<TechShop1.ViewModels.CartItem>
+@{
+	ViewData["Title"] = "Giỏ hàng của bạn";
+}
+
+<div class="container-fluid page-header py-5 shadow-sm">
+	<div class="container text-center py-5">
+		<h1 class="text-white display-5 fw-bold mb-3">Giỏ Hàng</h1>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb justify-content-center mb-0">
+				<li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white">Trang chủ</a></li>
+				<li class="breadcrumb-item active text-white-50" aria-current="page">Giỏ hàng</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+
+<div class="container-fluid py-5 bg-light">
+	<div class="container py-5">
+		<div class="row g-5">
+			<div class="col-lg-8">
+				<div class="table-responsive bg-white rounded-4 shadow-sm p-4">
+					<table class="table align-middle">
+						<thead class="border-bottom">
+							<tr>
+								<th scope="col" class="py-3">Sản phẩm</th>
+								<th scope="col" class="py-3">Tên</th>
+								<th scope="col" class="py-3">Giá</th>
+								<th scope="col" class="py-3 text-center">Số lượng</th>
+								<th scope="col" class="py-3">Thành tiền</th>
+								<th scope="col" class="py-3"></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr data-id="@item.MaHh">
+									<td>
+										<img src="~/Hinh/HangHoa/@item.Hinh" class="img-thumbnail rounded-3" style="width: 70px;" alt="@item.TenHH">
+									</td>
+									<td>
+										<a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.MaHh" class="text-dark fw-bold text-decoration-none hover-primary">@item.TenHH</a>
+									</td>
+									<td>@item.DonGia.ToString("#,##0") đ</td>
+									<td>
+										<div class="input-group quantity mx-auto" style="max-width: 120px;">
+											<button class="btn btn-sm btn-outline-secondary rounded-start-pill btn-minus" type="button">
+												<i class="fa fa-minus"></i>
+											</button>
+											<input type="text" class="form-control form-control-sm text-center border-secondary" value="@item.SoLuong" readonly>
+											<button class="btn btn-sm btn-outline-secondary rounded-end-pill btn-plus" type="button">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+									</td>
+									<td class="fw-bold text-primary">@item.ThanhTien.ToString("#,##0") đ</td>
+									<td class="text-end">
+										<a asp-action="RemoveCart" asp-controller="Cart" asp-route-id="@item.MaHh" class="btn btn-sm btn-outline-danger border-0">
+											<i class="fa fa-trash"></i>
+										</a>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+
+					<div class="d-flex justify-content-between mt-4">
+						<a asp-controller="HangHoa" asp-action="Index" class="btn btn-outline-primary rounded-pill px-4 py-2">
+							<i class="fas fa-arrow-left me-2"></i>Tiếp tục mua sắm
+						</a>
+						<div class="input-group w-50">
+							<input type="text" class="form-control rounded-start-pill border-secondary" placeholder="Mã giảm giá">
+							<button class="btn btn-primary rounded-end-pill px-4" type="button">Áp dụng</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="bg-white rounded-4 shadow-sm p-4">
+					<h4 class="fw-bold mb-4 border-bottom pb-2 text-uppercase">Tóm tắt đơn hàng</h4>
+					<div class="d-flex justify-content-between mb-3">
+						<span class="text-muted">Tạm tính:</span>
+						<span class="fw-bold" id="cart-subtotal">@Model.Sum(p => p.ThanhTien).ToString("#,##0") đ</span>
+					</div>
+					<div class="d-flex justify-content-between mb-3">
+						<span class="text-muted">Phí vận chuyển:</span>
+						<span class="text-success fw-medium">Miễn phí</span>
+					</div>
+					<hr>
+					<div class="d-flex justify-content-between mb-4">
+						<h5 class="fw-bold">Tổng cộng:</h5>
+						<h5 class="fw-bold text-danger" id="cart-total">@Model.Sum(p => p.ThanhTien).ToString("#,##0") đ</h5>
+					</div>
+					<a asp-action="CheckOut" asp-controller="Cart" class="btn btn-primary w-100 py-3 rounded-pill fw-bold text-uppercase shadow-sm hover-up">
+						Tiến hành thanh toán <i class="fas fa-chevron-right ms-2"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			// Dùng .off() để xóa các sự kiện cũ từ main.js, tránh nhảy số từ 1 lên 3
+			$('.btn-plus').off('click').on('click', function () {
+				var input = $(this).closest('.quantity').find('input');
+				var id = $(this).closest('tr').data('id'); // Lấy ID từ <tr data-id="...">
+				var newQty = parseInt(input.val()) + 1;
+
+				updateCart(id, newQty, input);
+			});
+
+			$('.btn-minus').off('click').on('click', function () {
+				var input = $(this).closest('.quantity').find('input');
+				var id = $(this).closest('tr').data('id');
+				var newQty = parseInt(input.val()) - 1;
+
+				if (newQty >= 1) {
+					updateCart(id, newQty, input);
+				}
+			});
+
+					function updateCart(id, qty, inputElement) {
+			var row = inputElement.closest('tr');
+
+			$.ajax({
+				url: '/Cart/UpdateQuantity',
+				type: 'POST',
+				data: { id: id, quantity: qty },
+				success: function (response) {
+					if (response.success) {
+						// 1. Cập nhật số lượng trong ô input
+						inputElement.val(qty);
+
+						// 2. Cập nhật thành tiền của riêng món hàng đó (cột ở giữa)
+						// Lưu ý: response.itemThanhTien đã chứa chữ "đ" trong Controller của bạn
+						row.find('td.text-primary').text(response.itemThanhTien);
+
+						// 3. Cập nhật Tạm tính và Tổng cộng ở cột bên phải
+						// Sử dụng .text() để ghi đè giá trị mới từ Server trả về
+						$("#cart-subtotal").text(response.cartTotal);
+						$("#cart-total").text(response.cartTotal);
+
+						// 4. Cập nhật số lượng trên icon giỏ hàng (nếu bạn có trả về totalCount)
+						if(response.totalCount) {
+							$(".cart-badge").text(response.totalCount);
+						}
+					} else {
+						alert(response.message || "Lỗi cập nhật giỏ hàng");
+					}
+				},
+				error: function() {
+					alert("Không thể kết nối với máy chủ");
+				}
+			});
+		}
+		});
+	</script>
+}

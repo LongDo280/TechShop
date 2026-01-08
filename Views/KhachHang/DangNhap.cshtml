@@ -1,0 +1,65 @@
+﻿@model TechShop1.ViewModels.LoginVM
+@{
+    ViewData["Title"] = "Đăng Nhập";
+}
+
+<div class="container-fluid py-5 mt-5">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-5">
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                    <div class="card-header bg-primary text-white py-4 text-center">
+                        <h2 class="mb-0 text-white fw-bold text-uppercase">Đăng Nhập</h2>
+                        <p class="mb-0 opacity-75">Chào mừng bạn quay trở lại TechShop</p>
+                    </div>
+                    <div class="card-body p-4 p-sm-5 bg-light">
+                        <form asp-action="DangNhap"
+                              asp-route-returnurl="@Context.Request.Query["ReturnUrl"]"
+                              method="post">
+                            @Html.AntiForgeryToken()
+
+                            <div class="text-danger mb-3" asp-validation-summary="ModelOnly"></div>
+
+                            <div class="mb-4">
+                                <label asp-for="LoginName" class="form-label fw-bold">Tên đăng nhập / Email <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 rounded-start-pill ps-3">
+                                        <i class="fas fa-user text-muted"></i>
+                                    </span>
+                                    <input asp-for="LoginName" class="form-control border-start-0 rounded-end-pill py-2" placeholder="Nhập tài khoản của bạn" />
+                                </div>
+                                <span asp-validation-for="LoginName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="Password" class="form-label fw-bold">Mật khẩu <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 rounded-start-pill ps-3">
+                                        <i class="fas fa-lock text-muted"></i>
+                                    </span>
+                                    <input asp-for="Password" type="password" class="form-control border-start-0 rounded-end-pill py-2" placeholder="••••••••" />
+                                </div>
+                                <span asp-validation-for="Password" class="text-danger small"></span>
+                            </div>
+
+                            <div class="d-grid gap-3 pt-2">
+                                <button type="submit" class="btn btn-primary py-3 rounded-pill fw-bold text-uppercase shadow-sm hover-up">
+                                    Đăng Nhập <i class="fas fa-sign-in-alt ms-2"></i>
+                                </button>
+
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <a asp-controller="KhachHang" asp-action="QuenMatKhau" class="text-muted small text-decoration-none hover-primary">
+                                        Quên mật khẩu?
+                                    </a>
+                                    <span class="text-muted small">
+                                        Chưa có tài khoản? <a asp-action="DangKy" class="text-primary fw-bold text-decoration-none">Đăng ký</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TechShop1.Data.HangHoa>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Quản lý hàng hóa";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Danh sách sản phẩm</h2>
+    <a asp-action="CreateProduct" class="btn btn-primary rounded-pill px-4">
+        <i class="bi bi-plus-lg"></i> Thêm sản phẩm mới
+    </a>
+</div>
+
+<div class="table-responsive bg-white p-3 rounded-4 shadow-sm">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Hình</th>
+                <th>Tên sản phẩm</th>
+                <th>Đơn giá</th>
+                <th>Loại</th>
+                <th class="text-center">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/Hinh/HangHoa/@item.Hinh" width="50" class="rounded" alt="@item.TenHh" />
+                        </td>
+                        <td class="fw-bold">@item.TenHh</td>
+                        <td class="text-danger">@item.DonGia?.ToString("#,##0") đ</td>
+                        <td>@item.MaLoaiNavigation?.TenLoai</td>
+                        <td class="text-center">
+                            <a asp-action="EditProduct" asp-route-id="@item.MaHh" class="btn btn-sm btn-outline-info">Sửa</a>
+                            <a asp-action="DeleteProduct" asp-route-id="@item.MaHh" class="btn btn-sm btn-outline-danger" onclick="return confirm('Xóa sản phẩm này?')">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

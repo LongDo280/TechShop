@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TechShop1.ViewModels.HangHoaVM>
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+    Layout = "_DanhSachHangHoa";
+}
+
+@section BreadCum {
+    <div class="container-fluid page-header py-5 shadow-sm">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-5 fw-bold mb-3">Cửa Hàng</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none">Trang chủ</a></li>
+                    <li class="breadcrumb-item active text-white-50" aria-current="page">Sản phẩm</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+}
+
+@* Vùng chứa sản phẩm để AJAX cập nhật nội dung *@
+<div id="product-list-container" class="row g-4">
+    @await Html.PartialAsync("_ProductListPartial", Model)
+</div>
+
+@section Scripts {
+    <script>
+        // Hàm tự gọi để đợi cho đến khi jQuery xuất hiện
+        (function checkjQuery() {
+            if (window.jQuery) {
+                // Khi jQuery đã sẵn sàng, thực hiện gán sự kiện
+                $(document).ready(function () {
+                    console.log("Hệ thống đã nhận diện jQuery!");
+
+                    $(document).on("change", ".filter-checkbox", function () {
+                        var formData = $("#filter-form").serialize();
+                        $("#product-list-container").css("opacity", "0.5");
+
+                        $.ajax({
+                            url: '@Url.Action("FilterProduct", "HangHoa")',
+                            type: 'GET',
+                            data: formData,
+                            success: function (results) {
+                                $("#product-list-container").html(results);
+                                $("#product-list-container").css("opacity", "1");
+                            },
+                            error: function (xhr) {
+                                console.error("Lỗi AJAX: " + xhr.status);
+                                $("#product-list-container").css("opacity", "1");
+                            }
+                        });
+                    });
+                });
+            } else {
+                // Nếu chưa có, đợi thêm 50ms rồi kiểm tra lại
+                setTimeout(checkjQuery, 50);
+            }
+        })();
+    </script>
+}

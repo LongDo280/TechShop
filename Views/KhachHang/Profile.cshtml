@@ -1,0 +1,117 @@
+﻿@model TechShop1.Data.KhachHang 
+@{
+    ViewData["Title"] = "Hồ sơ cá nhân";
+}
+
+<div class="container-fluid page-header py-5 shadow-sm mb-5">
+    <div class="container text-center py-5">
+        <h1 class="text-white display-5 fw-bold mb-3">Tài Khoản</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white">Trang chủ</a></li>
+                <li class="breadcrumb-item active text-white-50">Hồ sơ</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center">
+                <div class="mb-3">
+                    <img src="https://ui-avatars.com/api/?name=@Context.User.Identity.Name&background=random&size=128" 
+                         class="rounded-circle shadow-sm" alt="Avatar">
+                </div>
+                <h4 class="fw-bold">@Context.User.Identity.Name</h4>
+                <p class="text-muted small">Thành viên TechShop</p>
+                <hr>
+                <div class="d-grid gap-2">
+                    <a asp-action="EditProfile" asp-controller="KhachHang" class="btn btn-outline-primary rounded-pill btn-sm">
+                        <i class="fas fa-edit me-1"></i> Chỉnh sửa hồ sơ
+                    </a>
+                    <form asp-controller="KhachHang" asp-action="DangXuat" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger rounded-pill btn-sm w-100">Đăng xuất</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                <h5 class="fw-bold mb-4 text-primary border-bottom pb-2">
+                    <i class="fas fa-user-circle me-2"></i>Thông tin cá nhân
+                </h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="text-muted small">Họ và tên</label>
+                        <p class="fw-medium border-bottom pb-1">@Model.HoTen</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="text-muted small">Email</label>
+                        <p class="fw-medium border-bottom pb-1">@Model.Email</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="text-muted small">Số điện thoại</label>
+                        <p class="fw-medium border-bottom pb-1">@Model.DienThoai</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="text-muted small">Địa chỉ</label>
+                        <p class="fw-medium border-bottom pb-1">@Model.DiaChi</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <h5 class="fw-bold mb-4 text-primary border-bottom pb-2">
+                    <i class="fas fa-shopping-bag me-2"></i>Đơn hàng gần đây
+                </h5>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle small">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Mã ĐH</th>
+                                <th>Ngày đặt</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @* Lặp qua danh sách hóa đơn từ Model *@
+                            @if (Model.HoaDons != null && Model.HoaDons.Any())
+                            {
+                                foreach (var hd in Model.HoaDons.OrderByDescending(x => x.NgayDat))
+                                {
+                                    <tr>
+                                        <td class="fw-bold">#@hd.MaHd</td>
+                                        <td>@hd.NgayDat.ToString("dd/MM/yyyy")</td>
+                                        <td class="text-danger fw-bold">@hd.ChiTietHds.Sum(x => x.SoLuong * x.DonGia).ToString("#,##0") đ</td>
+                                        <td>
+                                            <span class="badge rounded-pill @(hd.MaTrangThai == 1 ? "bg-success" : "bg-warning")">
+                                                @(hd.MaTrangThai == 1 ? "Đã thanh toán" : "Chờ xử lý")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a asp-action="OrderDetail" asp-controller="KhachHang" asp-route-id="@hd.MaHd"
+                                               class="btn btn-light btn-sm rounded-pill border shadow-sm">
+                                                <i class="fas fa-eye me-1"></i> Chi tiết
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center py-3 text-muted">Bạn chưa có đơn hàng nào.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

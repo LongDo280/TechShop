@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Chính sách Đổi trả & Hoàn tiền";
+}
+
+<div class="container-fluid page-header py-5 shadow-sm">
+    <div class="container text-center py-5">
+        <h1 class="text-white display-5 fw-bold mb-3">Đổi Trả & Hoàn Tiền</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none">Trang chủ</a></li>
+                <li class="breadcrumb-item active text-white-50" aria-current="page">Sales & Refunds</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container-fluid py-5 bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="bg-white p-5 rounded-4 shadow-sm">
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-4">
+                            <div class="p-4 bg-light rounded-4 text-center h-100">
+                                <i class="fas fa-undo fa-3x text-primary mb-3"></i>
+                                <h5 class="fw-bold">7 Ngày Đổi Trả</h5>
+                                <p class="small text-muted mb-0">Áp dụng cho các lỗi từ nhà sản xuất.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 bg-light rounded-4 text-center h-100">
+                                <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
+                                <h5 class="fw-bold">Giao Hàng Lại</h5>
+                                <p class="small text-muted mb-0">Miễn phí vận chuyển khi đổi sản phẩm lỗi.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 bg-light rounded-4 text-center h-100">
+                                <i class="fas fa-check-circle fa-3x text-primary mb-3"></i>
+                                <h5 class="fw-bold">Bảo Hành 12 Tháng</h5>
+                                <p class="small text-muted mb-0">Cam kết hàng chính hãng 100%.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-primary fw-bold mb-4">1. Điều kiện đổi trả</h2>
+                    <p class="text-muted">Sản phẩm được chấp nhận đổi trả khi thỏa mãn các điều kiện sau:</p>
+                    <ul class="text-muted mb-4">
+                        <li class="mb-2">Sản phẩm còn nguyên tem bảo hành, hộp và đầy đủ phụ kiện đi kèm.</li>
+                        <li class="mb-2">Sản phẩm không có dấu hiệu va đập, thấm nước hoặc can thiệp phần cứng.</li>
+                        <li class="mb-2">Yêu cầu đổi trả được thực hiện trong vòng 7 ngày kể từ khi nhận hàng thành công.</li>
+                    </ul>
+
+                    <h2 class="text-primary fw-bold mb-4">2. Quy trình hoàn tiền</h2>
+                    <p class="text-muted mb-4">
+                        Đối với các đơn hàng thanh toán qua **VNPAY**, số tiền sẽ được hoàn trả trực tiếp vào tài khoản ngân hàng của bạn trong vòng 3-5 ngày làm việc sau khi yêu cầu được duyệt. Đối với đơn hàng COD, chúng tôi sẽ thực hiện chuyển khoản qua ngân hàng.
+                    </p>
+
+                    <h2 class="text-primary fw-bold mb-4">3. Các trường hợp từ chối đổi trả</h2>
+                    <ul class="text-muted mb-5">
+                        <li class="mb-2">Quá thời hạn quy định (7 ngày).</li>
+                        <li class="mb-2">Sản phẩm bị hư hỏng do lỗi sử dụng từ phía khách hàng.</li>
+                        <li class="mb-2">Hàng hóa không còn giữ được tình trạng ban đầu.</li>
+                    </ul>
+
+                    <div class="text-center">
+                        <p class="text-muted mb-4 small">Mọi thắc mắc vui lòng liên hệ qua trang <a asp-action="Contact" class="text-primary fw-bold">Liên hệ</a></p>
+                        <a asp-controller="HangHoa" asp-action="Index" class="btn btn-primary rounded-pill px-5 py-3 fw-bold text-uppercase shadow-sm">
+                            Về trang sản phẩm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

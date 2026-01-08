@@ -1,0 +1,79 @@
+﻿@model TechShop1.Data.HoaDon
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Chi tiết đơn hàng #" + Model.MaHd;
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Đơn hàng #@Model.MaHd</h2>
+        <a asp-action="DonHang" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-left"></i> Quay lại danh sách
+        </a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded-4 p-3 mb-4">
+                <h5 class="fw-bold border-bottom pb-2">Thông tin nhận hàng</h5>
+                <p class="mb-1"><strong>Người nhận:</strong> @Model.HoTen</p>
+                <p class="mb-1"><strong>Điện thoại:</strong> @Model.DienThoai</p>
+                <p class="mb-1"><strong>Địa chỉ:</strong> @Model.DiaChi</p>
+                <p class="mb-1"><strong>Ngày đặt:</strong> @Model.NgayDat.ToString("dd/MM/yyyy HH:mm")</p>
+            </div>
+
+            <div class="card shadow-sm border-0 rounded-4 p-3">
+                <h5 class="fw-bold border-bottom pb-2">Trạng thái & Thanh toán</h5>
+                <p class="mb-1"><strong>Phương thức:</strong> @Model.CachThanhToan</p>
+                <p class="mb-1"><strong>Phí vận chuyển:</strong> Miễn phí</p>
+                <div class="mt-3">
+                    <span class="badge p-2 px-3 rounded-pill @(Model.MaTrangThai == 1 ? "bg-success" : "bg-warning text-dark")">
+                        <i class="bi bi-info-circle me-1"></i>
+                        @(Model.MaTrangThai == 1 ? "Đã thanh toán" : "Chờ xử lý")
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4 p-3">
+                <h5 class="fw-bold border-bottom pb-2">Sản phẩm trong đơn hàng</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Hình</th>
+                                <th>Tên sản phẩm</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-end">Đơn giá</th>
+                                <th class="text-end">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ChiTietHds)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="~/Hinh/HangHoa/@item.MaHhNavigation.Hinh" width="50" class="rounded" />
+                                    </td>
+                                    <td class="fw-bold">@item.MaHhNavigation.TenHh</td>
+                                    <td class="text-center">@item.SoLuong</td>
+                                    <td class="text-end">@item.DonGia.ToString("#,##0") đ</td>
+                                    <td class="text-end fw-bold">@((item.SoLuong * item.DonGia).ToString("#,##0")) đ</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="fs-5">
+                                <td colspan="4" class="text-end fw-bold">Tổng cộng:</td>
+                                <td class="text-end text-danger fw-bold">
+                                    @Model.ChiTietHds.Sum(x => x.SoLuong * x.DonGia).ToString("#,##0") đ
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

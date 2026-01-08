@@ -1,0 +1,45 @@
+﻿@model TechShop1.ViewModels.AdminDashboardVM
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Dashboard"; 
+}
+
+<h2 class="mb-4">Tổng quan hệ thống</h2>
+<p>Chào mừng quay trở lại, <strong>@User.Identity?.Name</strong></p>
+
+<div class="row mt-4 g-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white shadow-sm border-0 rounded-4">
+            <div class="card-body">
+                <h6 class="text-uppercase small">Sản phẩm</h6>
+                <h2 class="fw-bold">@Model.TotalProducts</h2>
+                <a asp-action="HangHoa" class="text-white-50 small text-decoration-none">Quản lý ngay &rarr;</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white shadow-sm border-0 rounded-4">
+            <div class="card-body">
+                <h6 class="text-uppercase small">Đơn hàng mới</h6>
+                <h2 class="fw-bold">@Model.NewOrders</h2>
+                <a asp-action="DonHang" class="text-white-50 small text-decoration-none">Xử lý ngay &rarr;</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark shadow-sm border-0 rounded-4">
+            <div class="card-body">
+                <h6 class="text-uppercase small">Doanh thu tháng</h6>
+                <h2 class="fw-bold">@Model.MonthlyRevenue.ToString("#,##0") đ</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white shadow-sm border-0 rounded-4">
+            <div class="card-body">
+                <h6 class="text-uppercase small">Khách hàng</h6>
+                <h2 class="fw-bold">@Model.TotalCustomers</h2>
+            </div>
+        </div>
+    </div>
+</div>

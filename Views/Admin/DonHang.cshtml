@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TechShop1.Data.HoaDon>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Quản lý đơn hàng";
+}
+
+<h2 class="mb-4">Danh sách đơn hàng khách đã đặt</h2>
+
+<div class="table-responsive bg-white p-3 rounded-4 shadow-sm">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Mã ĐH</th>
+                <th>Khách hàng</th>
+                <th>Ngày đặt</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th class="text-center">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">#@item.MaHd</td>
+                        <td>
+                            @item.HoTen<br />
+                            <small class="text-muted">@item.DienThoai</small>
+                        </td>
+                        <td>@item.NgayDat.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td class="fw-bold text-primary">
+                            @* Tính tổng tiền từ danh sách Chi tiết hóa đơn *@
+                            @item.ChiTietHds.Sum(x => x.SoLuong * x.DonGia).ToString("#,##0") đ
+                        </td>
+                        <td>
+                            <span class="badge rounded-pill @(item.MaTrangThai == 1 ? "bg-success" : "bg-warning")">
+                                @(item.MaTrangThai == 1 ? "Đã thanh toán" : "Chờ xử lý")
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            @* Nút xem chi tiết món hàng khách đã mua *@
+                            <a asp-action="OrderDetail" asp-route-id="@item.MaHd" class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-eye"></i> Chi tiết
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center text-muted py-5">Chưa có đơn hàng nào.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://techshop.com.vn/sitemap.xml

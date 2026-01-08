@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Xác nhận OTP";
+}
+
+<div class="container-fluid page-header py-5">
+    <div class="container text-center py-5">
+        <h1 class="text-white display-6">Xác nhận số điện thoại</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 border rounded p-4 shadow-sm">
+            <h3 class="text-center mb-4">Nhập mã OTP</h3>
+            <p class="text-muted text-center">Mã xác thực đã được gửi đến số: <strong>@ViewBag.Sdt</strong></p>
+            <hr />
+
+            <form asp-action="XacNhanOTP" method="post">
+                <input type="hidden" name="sdt" value="@ViewBag.Sdt" />
+
+                <div class="form-group mb-3">
+                    <label class="form-label">Mã xác thực (6 số)</label>
+                    <input name="otp" class="form-control form-control-lg text-center"
+                           placeholder="000000" maxlength="6" required />
+                </div>
+
+                <div class="text-danger mb-3" asp-validation-summary="ModelOnly"></div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2">Xác nhận và Đăng ký</button>
+            </form>
+
+            <div class="mt-3 text-center">
+                <p>Không nhận được mã? <a href="javascript:location.reload();">Gửi lại</a></p>
+            </div>
+        </div>
+    </div>
+</div>

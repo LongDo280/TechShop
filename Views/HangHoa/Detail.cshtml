@@ -1,0 +1,97 @@
+﻿@model TechShop1.ViewModels.ChiTietHangHoaVM
+@{
+     ViewData["Title"] = Model.TenHh; 
+}
+@section Scripts {
+    @* Đây là nơi đặt thẻ Meta cho SEO *@
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="@Model.TenHh" />
+    <meta property="og:description" content="@Model.MoTaNgan" />
+    <meta property="og:url" content="@Context.Request.Scheme://@Context.Request.Host@Context.Request.Path" />
+    <meta property="og:image" content="@Context.Request.Scheme://@Context.Request.Host/Hinh/HangHoa/@Model.Hinh" />
+}
+
+<div class="container-fluid py-5 mt-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-lg-8 col-xl-9">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="border rounded p-4 bg-white text-center shadow-sm">
+                            <img src="~/Hinh/HangHoa/@Model.Hinh" class="img-fluid rounded" alt="@Model.TenHh"> 
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="fw-bold mb-3">@Model.TenHh</h3>
+                        <p class="text-muted mb-3">Danh mục: <span class="text-primary fw-bold">@Model.TenLoai</span></p> 
+                        <h4 class="fw-bold text-primary mb-4">@string.Format("{0:N0} ₫", Model.DonGia)</h4>
+
+                        <div class="mb-4">
+                            <p class="text-secondary small mb-1">Mô tả ngắn:</p>
+                            <p>@Model.MoTaNgan</p>
+                        </div>
+
+                        <form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.MaHh" method="post">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="input-group quantity me-3" style="width: 120px;">
+                                    <button class="btn btn-minus border bg-light" type="button"><i class="fa fa-minus"></i></button> 
+                                    <input type="text" class="form-control text-center border-1" value="1" name="quantity"> 
+                                    <button class="btn btn-plus border bg-light" type="button"><i class="fa fa-plus"></i></button> 
+                                </div>
+                                <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">
+                                    <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ
+                                </button>
+                            </div>
+                        </form>
+                        <div class="mt-4 pt-3 border-top">
+                            <p class="text-secondary small mb-2"><i class="fas fa-share-alt me-2"></i>Chia sẻ sản phẩm này:</p>
+
+                            <div class="a2a_kit a2a_kit_size_32 a2a_default_style"
+                                 data-a2a-url="@Context.Request.Scheme://@Context.Request.Host@Context.Request.Path"
+                                 data-a2a-title="@Model.TenHh">
+                                <a class="a2a_button_facebook"></a>
+                                <a class="a2a_button_facebook_messenger"></a>
+                                <a class="a2a_button_copy_link"></a>
+                                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                            </div>
+
+                            <script async src="https://static.addtoany.com/menu/page.js"></script>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <nav>
+                            <div class="nav nav-tabs border-bottom-0 mb-3">
+                                <button class="nav-link active fw-bold" data-bs-toggle="tab" data-bs-target="#desc">Mô tả sản phẩm</button>
+                                <button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#review">Đánh giá</button>
+                            </div>
+                        </nav>
+                        <div class="tab-content bg-light p-4 rounded shadow-sm mb-5">
+                            <div class="tab-pane active" id="desc">
+                                @Html.Raw(Model.ChiTiet)
+                            </div>
+                            <div class="tab-pane" id="review">
+                                <p class="text-muted">Chưa có đánh giá cho sản phẩm này.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-xl-3">
+                <div class="sidebar-widget">
+                    @await Component.InvokeAsync("MenuLoai")
+
+                    <div class="mt-5 p-4 bg-dark rounded text-white shadow">
+                        <h5 class="text-primary fw-bold">TechShop Cam Kết</h5>
+                        <ul class="list-unstyled small mt-3">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Hàng chính hãng 100%</li>
+                            <li class="mb-2"><i class="fas fa-truck text-success me-2"></i>Giao hàng hỏa tốc</li>
+                            <li><i class="fas fa-shield-alt text-success me-2"></i>Bảo hành 12 tháng</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

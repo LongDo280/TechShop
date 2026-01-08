@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Chính sách bảo mật";
+}
+
+<div class="container-fluid page-header py-5 shadow-sm">
+    <div class="container text-center py-5">
+        <h1 class="text-white display-5 fw-bold mb-3">Chính Sách Bảo Mật</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none">Trang chủ</a></li>
+                <li class="breadcrumb-item active text-white-50" aria-current="page">Privacy Policy</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container-fluid py-5 bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="bg-white p-5 rounded-4 shadow-sm">
+                    <h2 class="text-primary fw-bold mb-4">1. Thu thập thông tin cá nhân</h2>
+                    <p class="text-muted mb-4">
+                        TechShop thu thập thông tin của bạn khi bạn đăng ký tài khoản, đặt hàng hoặc đăng ký nhận tin bản tin. Các thông tin bao gồm: Họ tên, Email, Số điện thoại và Địa chỉ giao hàng.
+                    </p>
+
+                    <h2 class="text-primary fw-bold mb-4">2. Mục đích sử dụng thông tin</h2>
+                    <ul class="text-muted mb-4">
+                        <li class="mb-2">Để xử lý và vận chuyển đơn hàng của bạn.</li>
+                        <li class="mb-2">Để cải thiện dịch vụ chăm sóc khách hàng và trải nghiệm người dùng.</li>
+                        <li class="mb-2">Để gửi email thông báo về trạng thái đơn hàng hoặc các chương trình khuyến mãi.</li>
+                    </ul>
+
+                    <h2 class="text-primary fw-bold mb-4">3. Bảo mật dữ liệu</h2>
+                    <p class="text-muted mb-4">
+                        Chúng tôi áp dụng các biện pháp bảo mật hiện đại để bảo vệ thông tin của bạn. Mật khẩu của bạn được băm (hash) bằng công nghệ MD5 kết hợp với RandomKey trước khi lưu trữ vào hệ thống.
+                    </p>
+
+                    <div class="p-4 bg-light rounded-4 border-start border-primary border-4 mt-5">
+                        <h5 class="fw-bold"><i class="fas fa-info-circle text-primary me-2"></i> Lưu ý:</h5>
+                        <p class="mb-0 text-muted small">
+                            Chính sách này có thể được cập nhật thường xuyên để phù hợp với quy định pháp luật. Mọi thay đổi sẽ được thông báo trực tiếp trên website này.
+                        </p>
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <a asp-controller="HangHoa" asp-action="Index" class="btn btn-primary rounded-pill px-5 py-3 fw-bold text-uppercase shadow-sm">
+                            Tiếp tục mua sắm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

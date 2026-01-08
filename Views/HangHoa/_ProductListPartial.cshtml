@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TechShop1.ViewModels.HangHoaVM>
+
+@if (Model != null && Model.Any())
+{
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative hover-up">
+                <span class="badge bg-primary position-absolute m-3 rounded-pill" style="top:0; left:0; z-index:10;">
+                    @item.TenLoai
+                </span>
+
+                <div style="height: 220px; background: #fff;" class="d-flex align-items-center justify-content-center p-3">
+                    <img src="~/Hinh/HangHoa/@item.Hinh" class="img-fluid" style="max-height: 100%; object-fit: contain;" alt="@item.TenHh">
+                </div>
+
+                <div class="card-body text-center d-flex flex-column p-4">
+                    <h6 class="card-title fw-bold text-dark mb-2">
+                        <a href="/san-pham/@item.TenHh.Replace(" ", "-")-@item.MaHh" class="text-dark text-decoration-none">
+                            @item.TenHh
+                        </a>
+                    </h6>
+                    <p class="text-primary fw-bold fs-5 mt-auto">@item.DonGia.ToString("#,##0") đ</p>
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.MaHh"
+                       class="btn btn-primary rounded-pill w-100 fw-bold">
+                        <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="col-12 text-center py-5">
+        <h4 class="text-muted">Không tìm thấy sản phẩm nào phù hợp.</h4>
+    </div>
+}
